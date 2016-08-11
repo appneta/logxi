@@ -1,4 +1,4 @@
-package log
+package logxi
 
 /*
 http://en.wikipedia.org/wiki/Syslog
