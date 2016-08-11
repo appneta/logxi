@@ -176,15 +176,15 @@ func isReservedKey(k interface{}) (bool, error) {
 }
 
 func init() {
-	colorableStdout = NewConcurrentWriter(os.Stdout)
+	colorableStdout = NewConcurrentWriter(os.Stderr)
 
-	isTerminal = isatty.IsTerminal(os.Stdout.Fd())
+	isTerminal = isatty.IsTerminal(os.Stderr.Fd())
 
 	// the internal logger to report errors
 	if isTerminal {
-		InternalLog = NewLogger3(NewConcurrentWriter(os.Stdout), "__logxi", NewTextFormatter("__logxi"))
+		InternalLog = NewLogger3(NewConcurrentWriter(os.Stderr), "__logxi", NewTextFormatter("__logxi"))
 	} else {
-		InternalLog = NewLogger3(NewConcurrentWriter(os.Stdout), "__logxi", NewJSONFormatter("__logxi"))
+		InternalLog = NewLogger3(NewConcurrentWriter(os.Stderr), "__logxi", NewJSONFormatter("__logxi"))
 	}
 	InternalLog.SetLevel(LevelError)
 
