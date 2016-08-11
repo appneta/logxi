@@ -178,7 +178,8 @@ func isReservedKey(k interface{}) (bool, error) {
 func init() {
 	colorableStdout = NewConcurrentWriter(os.Stderr)
 
-	isTerminal = isatty.IsTerminal(os.Stderr.Fd())
+	forceTerminal := os.Getenv("FORCE_TERMINAL") != ""
+	isTerminal = forceTerminal || isatty.IsTerminal(os.Stderr.Fd())
 
 	// the internal logger to report errors
 	if isTerminal {
